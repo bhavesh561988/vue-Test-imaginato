@@ -20,6 +20,7 @@
         </b-input-group>
         <b-button variant="primary" @click="addOrder()"> Add Order </b-button>
       </b-row>
+      <!------------ Use data table for listing ------------------>
       <b-row>
         <b-col>
           <b-table
@@ -58,6 +59,8 @@
           ></b-pagination>
         </b-col>
       </b-row>
+      <!------------End Use data table for listing ------------------>
+      <!-- Model for add and delete order -->
       <form ref="addform">
         <b-modal v-model="orderModel" title="New Order" no-close-on-backdrop>
           <b-form-group
@@ -93,20 +96,8 @@
                 aria-label="Amount (to the nearest dollar)"
               />
             </div>
-            <!-- <b-form-input
-              id="price-input"
-              name="price-input"
-              type="number"
-              v-model="price"
-              v-validate="'required'"
-              :class="{ 'is-invalid': errors.has('price-input') }"
-            ></b-form-input> -->
           </b-form-group>
-          <b-form-group
-            label="Note"
-            label-for="note-input"
-            invalid-feedback="price is required"
-          >
+          <b-form-group label="Note" label-for="note-input">
             <b-form-textarea
               id="note-input"
               v-model="note"
@@ -161,14 +152,6 @@
                 aria-label="Amount (to the nearest dollar)"
               />
             </div>
-            <!-- <b-form-input
-              id="price-input"
-              name="price-input"
-              type="number"
-              v-model="price"
-              v-validate="'required'"
-              :class="{ 'is-invalid': errors.has('price-input') }"
-            ></b-form-input> -->
           </b-form-group>
           <b-form-group
             label="Note"
@@ -194,14 +177,12 @@
           </template>
         </b-modal>
       </form>
+      <!----------- End Model for add and delete order ------------>
     </b-container>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from "@/components/HelloWorld.vue";
-
 export default {
   name: "Home",
   data() {
@@ -220,112 +201,113 @@ export default {
         {
           key: "orderId",
           sortable: true,
-          thStyle: { backgroundColor: "aliceblue" },
+          thStyle: { backgroundColor: "aliceblue" }
         },
         {
           key: "name",
           sortable: true,
-          thStyle: { backgroundColor: "aliceblue" },
+          thStyle: { backgroundColor: "aliceblue" }
         },
         {
           key: "price",
           label: "Price (usd)",
           sortable: true,
-          thStyle: { backgroundColor: "aliceblue" },
+          thStyle: { backgroundColor: "aliceblue" }
         },
         { key: "note", thStyle: { backgroundColor: "aliceblue" } },
         {
           key: "actions",
-          thStyle: { backgroundColor: "aliceblue", minWidth: "170px" },
-        },
+          thStyle: { backgroundColor: "aliceblue", minWidth: "170px" }
+        }
       ],
       orders: [
         {
           orderId: 1,
           name: "Masala lemonmade",
           price: 3,
-          note: "Masala Lemonade with ginger.",
+          note: "Masala Lemonade with ginger."
         },
         {
           orderId: 2,
           name: "Choco Volcano Cake",
           price: 10,
-          note: "Choco Delight With A Gooey Chocolate Volcano Centre.",
+          note: "Choco Delight With A Gooey Chocolate Volcano Centre."
         },
         {
           orderId: 3,
           name: "Jamuntini",
           price: 8,
-          note: "Fresh Blast OfJamun With A Hint Of Refreshing Mint.",
+          note: "Fresh Blast OfJamun With A Hint Of Refreshing Mint."
         },
         {
           orderId: 4,
           name: "Pepsi Family Combo",
           price: 20,
-          note: "Combo of 4 Pepsi Glasses.",
+          note: "Combo of 4 Pepsi Glasses."
         },
         {
           orderId: 5,
           name: "Creamy Garlic Bread Stix",
           price: 35,
           note:
-            "Freshly Baked, Buttery Garlic Bread Stix, Topped With A Gooey Cheese Sauce.",
+            "Freshly Baked, Buttery Garlic Bread Stix, Topped With A Gooey Cheese Sauce."
         },
         {
           orderId: 6,
           name: "Cheesy Comfort Veg",
           price: 40,
           note:
-            "Cheesy Creamy Pasta Comfort Topped With Onion, Green Capsicum, Red Capsicum & Sweet Corn.",
+            "Cheesy Creamy Pasta Comfort Topped With Onion, Green Capsicum, Red Capsicum & Sweet Corn."
         },
         {
           orderId: 7,
           name: "Spicy Baked Chicken Wings",
           price: 22,
-          note: "6 Pieces Of Spicy, Tender Chicken Wings.",
+          note: "6 Pieces Of Spicy, Tender Chicken Wings."
         },
         {
           orderId: 8,
           name: "Spiced Tomato Twist Non Veg",
           price: 50,
           note:
-            "Tangy Flavourful Red Sauce Pasta Infused With Heavenly Herbs & Spices Topped With Chicken Sausage.",
+            "Tangy Flavourful Red Sauce Pasta Infused With Heavenly Herbs & Spices Topped With Chicken Sausage."
         },
         {
           orderId: 9,
           name: "7up Duos Combo",
           price: 11,
-          note: "Combo of 2 7up Glasses.",
+          note: "Combo of 2 7up Glasses."
         },
         {
           orderId: 10,
           name: "Country Feast Pizza",
           price: 45,
-          note: "Herbed Onion & Green capsicum, Sweet Corn, Tomato, Mushroom.",
-        },
-      ],
+          note: "Herbed Onion & Green capsicum, Sweet Corn, Tomato, Mushroom."
+        }
+      ]
     };
   },
   computed: {
     rows() {
       return this.orders.length;
-    },
+    }
   },
   methods: {
+    /* ********** delete Order method ******** */
     deleteOrder(id) {
       this.$swal({
         title: "Are you sure?",
         text: "Delete this order!",
         type: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
-      }).then((result) => {
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes, delete it!"
+      }).then(result => {
         if (result.value) {
           this.orders.splice(id - 1, 1);
           this.$toast.success("Order deleted successfully!.", {
-            duration: 3000,
+            duration: 3000
           });
         }
       });
@@ -339,6 +321,7 @@ export default {
       this.price = "";
       this.note = "";
     },
+    /* ********** Edit time set value order ******** */
     editOrder(id) {
       this.orderId = id;
       var i = id - 1;
@@ -347,18 +330,19 @@ export default {
       this.note = this.orders[i].note;
       this.editModel = true;
     },
+    /* ********** new order method ******** */
     handleSubmit() {
-      this.$validator.validate().then((valid) => {
+      this.$validator.validate().then(valid => {
         if (valid) {
           let order_id = this.orders.length + 1;
           this.orders.push({
             orderId: order_id,
             name: this.name,
             price: this.price,
-            note: this.note,
+            note: this.note
           });
           this.$toast.success("Order created successfully!.", {
-            duration: 3000,
+            duration: 3000
           });
           this.resetModal();
           // Hide the modal manually
@@ -366,21 +350,22 @@ export default {
         }
       });
     },
+    /* ********** update order method ******** */
     updateOrder() {
-      this.$validator.validate().then((valid) => {
+      this.$validator.validate().then(valid => {
         if (valid) {
           var i = this.orderId - 1;
           this.orders[i].name = this.name;
           this.orders[i].price = this.price;
           this.orders[i].note = this.note;
           this.$toast.success("Order updated successfully!.", {
-            duration: 3000,
+            duration: 3000
           });
           this.resetModal();
           this.editModel = false;
         }
       });
-    },
-  },
+    }
+  }
 };
 </script>
